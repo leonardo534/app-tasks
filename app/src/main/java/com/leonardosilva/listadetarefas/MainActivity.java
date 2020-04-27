@@ -47,6 +47,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onStart() {
+        carregarListadeTarefas();
+        super.onStart();
+    }
+
     public void carregarListadeTarefas(){
     TarefaModel tarefa1 = new TarefaModel();
     tarefa1.setNomeTarefa("Ir para casa");
@@ -58,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayout.VERTICAL));
-
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
