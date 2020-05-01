@@ -6,8 +6,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    public DbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version){
-        super(context, name, factory, version);
+    public static int VERSION = 1;
+    public static String NOME_DB = "DB_TAREFAS";
+
+    public DbHelper(Context context){
+        super(context, NOME_DB, null, VERSION);
     }
 
     @Override
