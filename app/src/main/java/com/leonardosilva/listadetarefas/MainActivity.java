@@ -1,11 +1,13 @@
 package com.leonardosilva.listadetarefas;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.leonardosilva.listadetarefas.adapter.TarefaAdapter;
+import com.leonardosilva.listadetarefas.helper.DbHelper;
 import com.leonardosilva.listadetarefas.helper.RecyclerItemClickListener;
 import com.leonardosilva.listadetarefas.model.TarefaModel;
 
@@ -37,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        DbHelper dbHelper = new DbHelper(getApplicationContext());
+        ContentValues cv = new ContentValues();
+        cv.put("nome", "Testes");
+
+        dbHelper.getWritableDatabase().insert("tarefas", null, cv);
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
