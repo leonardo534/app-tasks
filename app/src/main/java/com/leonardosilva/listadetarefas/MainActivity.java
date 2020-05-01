@@ -40,12 +40,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DbHelper dbHelper = new DbHelper(getApplicationContext());
-        ContentValues cv = new ContentValues();
-        cv.put("nome", "Testes");
-
-        dbHelper.getWritableDatabase().insert("tarefas", null, cv);
-
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
