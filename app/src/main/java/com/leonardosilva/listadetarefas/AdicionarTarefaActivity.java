@@ -7,12 +7,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.leonardosilva.listadetarefas.helper.TarefaDAO;
+import com.leonardosilva.listadetarefas.model.TarefaModel;
+
 public class AdicionarTarefaActivity extends AppCompatActivity {
+
+    private TextInputEditText editTarefa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_tarefa);
+        editTarefa = findViewById(R.id.textTarefa);
     }
 
     @Override
@@ -25,7 +32,11 @@ public class AdicionarTarefaActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.itemSalvar:
+                TarefaDAO tarefaDAO = new TarefaDAO(getApplicationContext());
+                TarefaModel tarefa = new TarefaModel();
+                tarefa.setNomeTarefa("Ir correr");
 
+                tarefaDAO.salvar(tarefa);
                 break;
         }
 
