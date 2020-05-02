@@ -44,7 +44,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.i("clique", "onItemClick: ");
+                TarefaModel tarefaSelecionada = listaTarefas.get(position);
+
+                Intent intent = new Intent(MainActivity.this, AdicionarTarefaActivity.class);
+                intent.putExtra("tarefaSelecionada", tarefaSelecionada);
+                startActivity(intent);
             }
 
             @Override
