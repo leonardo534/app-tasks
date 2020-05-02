@@ -14,12 +14,18 @@ import com.leonardosilva.listadetarefas.model.TarefaModel;
 public class AdicionarTarefaActivity extends AppCompatActivity {
 
     private TextInputEditText editTarefa;
+    private TarefaModel tarefaAtual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_tarefa);
         editTarefa = findViewById(R.id.textTarefa);
+
+        tarefaAtual = (TarefaModel) getIntent().getSerializableExtra("tarefaSelecionada");
+        if (tarefaAtual != null) {
+            editTarefa.setText(tarefaAtual.getNomeTarefa());
+        }
     }
 
     @Override
