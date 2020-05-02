@@ -5,7 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.leonardosilva.listadetarefas.AdicionarTarefaActivity;
 import com.leonardosilva.listadetarefas.model.TarefaModel;
 
 import java.util.ArrayList;
@@ -41,7 +43,19 @@ public class TarefaDAO  implements ITarefaDAO{
 
     @Override
     public boolean atualizar(TarefaModel tarefa) {
-        return false;
+        ContentValues cv = new ContentValues();
+        cv.put("nome", tarefa.getNomeTarefa());
+
+        try{
+            String[] args = {tarefa.getId().toString()};
+            escreve.update(DbHelper.TABELA_TAREFAS, cv, "id=?", args);
+        }catch (Exception e){
+            Log.i("TAG", "ERROR AO ATUALIZAR: "+e.getMessage());
+
+        }
+
+
+        return true;
     }
 
     @Override
