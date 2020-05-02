@@ -9,6 +9,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.leonardosilva.listadetarefas.adapter.TarefaAdapter;
 import com.leonardosilva.listadetarefas.helper.DbHelper;
 import com.leonardosilva.listadetarefas.helper.RecyclerItemClickListener;
+import com.leonardosilva.listadetarefas.helper.TarefaDAO;
 import com.leonardosilva.listadetarefas.model.TarefaModel;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -76,9 +77,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void carregarListadeTarefas(){
-    TarefaModel tarefa1 = new TarefaModel();
-    tarefa1.setNomeTarefa("Ir para casa");
-    listaTarefas.add(tarefa1);
+    TarefaDAO tarefaDAO = new TarefaDAO(getApplicationContext());
+    listaTarefas = tarefaDAO.listar();
 
     adapter = new TarefaAdapter(listaTarefas);
 
