@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.leonardosilva.listadetarefas.helper.TarefaDAO;
@@ -40,12 +41,36 @@ public class AdicionarTarefaActivity extends AppCompatActivity {
             case R.id.itemSalvar:
                 TarefaDAO tarefaDAO = new TarefaDAO(getApplicationContext());
 
-                String nomeTarefa = editTarefa.getText().toString();
-                if (!nomeTarefa.isEmpty()) {
-                    TarefaModel tarefa = new TarefaModel();
-                    tarefa.setNomeTarefa(nomeTarefa);
-                    finish();
-                    tarefaDAO.salvar(tarefa);
+                if (tarefaAtual != null) { //edição
+                    String nomeTarefa = editTarefa.getText().toString();
+                    if (!nomeTarefa.isEmpty()) {
+                        TarefaModel tarefa = new TarefaModel();
+                        tarefa.setNomeTarefa(nomeTarefa);
+                        tarefa.setId(tarefaAtual.getId());
+
+                        if (tarefaDAO.atualizar(tarefa)) {
+                            finish();
+                            Toast.makeText(this, "Sucesso ao atualizar", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(this, "Erro ao atualizar", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                }else{ //salvar
+
+                    String nomeTarefa = editTarefa.getText().toString();
+                    if (!nomeTarefa.isEmpty()) {
+                        TarefaModel tarefa = new TarefaModel();
+                        tarefa.setNomeTarefa(nomeTarefa);
+
+                        if (tarefaDAO.salvar(tarefa)) {
+                            finish();
+                            Toast.makeText(this, "Salvo com sucesso!", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(this, "Erro ao salvar!", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
                 }
 
                 break;
