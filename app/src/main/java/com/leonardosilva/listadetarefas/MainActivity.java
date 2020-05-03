@@ -1,6 +1,7 @@
 package com.leonardosilva.listadetarefas;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import com.leonardosilva.listadetarefas.helper.RecyclerItemClickListener;
 import com.leonardosilva.listadetarefas.helper.TarefaDAO;
 import com.leonardosilva.listadetarefas.model.TarefaModel;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -24,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TarefaAdapter adapter;
     private List<TarefaModel> listaTarefas = new ArrayList<>();
+    private TarefaModel tarefaSelecionada;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +57,30 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onLongItemClick(View view, int position) {
-                Log.i("clique", "onLongItemClick: ");
+                tarefaSelecionada = listaTarefas.get(position);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
 
+                dialog.setTitle("Confirmar exclusão");
+                dialog.setMessage("Deseja excluir a tarefa: "+tarefaSelecionada.getNomeTarefa() + " ?");
+
+                dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        TarefaDAO tarefaDAO = new TarefaDAO(getApplicationContext());
+                        if (tarefaDAO.deletar(tarefaSelecionada)) {
+                            carregarListadeTarefas();
+                            Toast.makeText(MainActivity.this, "Sucesso ao excluir", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(MainActivity.this, "Erro ao excluir", Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+                });
+
+                dialog.setNegativeButton("Não", null);
+
+                dialog.create();
+                dialog.show();
             }
 
             @Override
