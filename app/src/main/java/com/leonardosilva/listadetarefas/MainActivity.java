@@ -1,14 +1,11 @@
 package com.leonardosilva.listadetarefas;
 
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.leonardosilva.listadetarefas.adapter.TarefaAdapter;
-import com.leonardosilva.listadetarefas.helper.DbHelper;
 import com.leonardosilva.listadetarefas.helper.RecyclerItemClickListener;
 import com.leonardosilva.listadetarefas.helper.TarefaDAO;
 import com.leonardosilva.listadetarefas.model.TarefaModel;
@@ -19,8 +16,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
