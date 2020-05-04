@@ -5,9 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.leonardosilva.listadetarefas.AdicionarTarefaActivity;
 import com.leonardosilva.listadetarefas.model.TarefaModel;
 
 import java.util.ArrayList;
